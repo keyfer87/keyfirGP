@@ -22,16 +22,16 @@ async def search_games(query):
                     return []
                 return data.get("data", {}).get("items", [])
     except Exception as e:
-        print("Ошибка запроса:", e)
+        print("Ошибка АПИ:", e)
         return []
 
 
 def filter_steam_keys(items):
-    bad_keywords = ["ps", "playstation", "ps4", "ps5", "xbox", "аккаунт", "account"]
+    bad_words = ["ps", "playstation", "nintendo", "ps4", "ps5", "xbox", "аккаунт", "account"]
     result = []
     for item in items:
         text = item.get("name", "").lower() + " " + item.get("search_title", "").lower()
-        if any(word in text.split() for word in bad_keywords):
+        if any(word in text.split() for word in bad_words):
             continue
         result.append(item)
     return result
